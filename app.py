@@ -27,7 +27,8 @@ def data():
             PersonInsertQuery = '''INSERT INTO Person(firstname, Bdate) Values(%s,%s);'''
             DBInsert(PersonInsertQuery, (content["name"], content["email"]))
             return Response(status=200)
-        except:
+        except Exception as e:
+            print(e)
             return Response(status=420)
     if request.method == "PUT":
         try:
