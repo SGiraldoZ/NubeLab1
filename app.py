@@ -25,7 +25,6 @@ def data():
 
         json = {'users': list}
         resp = make_response(flask.jsonify(json))
-        resp.headers.add('Access-Control-Allow-Origin', '*')
         resp.headers.add('Access-Control-Allow-Headers', '*')
         resp.headers.add('Access-Control-Allow-Methods', '*')
 
