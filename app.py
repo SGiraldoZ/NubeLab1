@@ -10,6 +10,7 @@ app = Flask(__name__)
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def data():
+    print(request)
     if request.method == "GET":
         content = request.json
         usersQuery = '''SELECT * FROM Person WHERE id like "''' + content["Id"] + '";'
@@ -20,6 +21,8 @@ def data():
         return Response(json, status=200, mimetype='application/json')
     if request.method == "POST":
         try:
+            print(request)
+            print(request.json)
             content = request.json
             PersonInsertQuery = '''INSERT INTO Person(firstname, Bdate) Values(%s,%s);'''
             DBInsert(PersonInsertQuery, (content["name"], content["email"]))
