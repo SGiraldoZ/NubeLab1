@@ -1,13 +1,14 @@
 import flask
 from flask import Flask, request, Response
 from DbConnection import DBInsert, sql_query, sql_edit
+from flask_cors import CORS
 import datetime
 
 x = datetime.datetime.now()
 
 # Initializing flask app
 app = Flask(__name__)
-
+CORS(app)
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def data():
@@ -21,6 +22,8 @@ def data():
 
         resp = flask.jsonify(json)
         resp.headers.add('Access-Control-Allow-Origin', '*')
+        resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
 
         return resp
     if request.method == "POST":
