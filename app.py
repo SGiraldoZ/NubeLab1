@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, request, Response
 from DbConnection import DBInsert, sql_query, sql_edit
 import datetime
@@ -18,10 +19,10 @@ def data():
 
         json = {'id': user["Id"], 'name': user["name"], 'email': user["email"]}
 
-        resp = Response(json, status=200, mimetype='application/json')
-        resp.headers['Access-Control-Allow-Origin'] = '*'
-        
-        return
+        resp = flask.jsonify(json)
+        resp.headers.add('Access-Control-Allow-Origin', '*')
+
+        return resp
     if request.method == "POST":
         try:
             print(request)
