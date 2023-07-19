@@ -15,7 +15,7 @@ def data():
     if request.method == "GET":
         usersQuery = '''SELECT * FROM Person;'''
         users = sql_query(usersQuery)
-
+        print(users)
         list=[]
         for user in users:
             print(user)
