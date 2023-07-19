@@ -8,6 +8,7 @@ x = datetime.datetime.now()
 
 # Initializing flask app
 app = Flask(__name__)
+app.config['CORS_SUPPORTS_CREDENTIALS'] = True
 CORS(app, origins=["http://localhost:3000", "http://localhost:5000"])
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
