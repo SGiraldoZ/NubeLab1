@@ -1,7 +1,7 @@
 import flask
 from flask import Flask, request, Response
 from DbConnection import DBInsert, sql_query, sql_edit
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import datetime
 
 x = datetime.datetime.now()
@@ -9,9 +9,10 @@ x = datetime.datetime.now()
 # Initializing flask app
 app = Flask(__name__)
 app.config['CORS_SUPPORTS_CREDENTIALS'] = True
-CORS(app, origins=["http://localhost:3000", "http://localhost:5000"])
+CORS(app, support_credentials=True)
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
+@cross_origin(supports_credentials=True)
 def data():
     if request.method == "GET":
         usersQuery = '''SELECT * FROM Person;'''
