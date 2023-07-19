@@ -18,7 +18,10 @@ def data():
 
         json = {'id': user["Id"], 'name': user["name"], 'email': user["email"]}
 
-        return Response(json, status=200, mimetype='application/json')
+        resp = Response(json, status=200, mimetype='application/json')
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        
+        return
     if request.method == "POST":
         try:
             print(request)
