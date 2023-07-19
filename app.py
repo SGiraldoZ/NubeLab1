@@ -14,9 +14,13 @@ CORS(app)
 def data():
     if request.method == "GET":
         usersQuery = '''SELECT * FROM Person;'''
-        user = sql_query(usersQuery)
+        users = sql_query(usersQuery)
 
-        json = {'id': user["Id"], 'name': user["name"], 'email': user["email"]}
+        list=[]
+        for user in users:
+            list.append({'id': user["Id"], 'name': user["name"], 'email': user["email"]})
+
+        json = {list}
 
         resp = flask.jsonify(json)
         resp.headers.add('Content-Type', 'application/json')
