@@ -21,7 +21,7 @@ def data():
             print(user)
             list.append({'id': user["id"], 'name': user["name"], 'email': user["email"]})
 
-        json = {list}
+        json = {'users': list}
 
         resp = flask.jsonify(json)
         resp.headers.add('Content-Type', 'application/json')
