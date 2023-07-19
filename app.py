@@ -8,7 +8,7 @@ x = datetime.datetime.now()
 
 # Initializing flask app
 app = Flask(__name__)
-CORS(app, resources={r"/": {"origins": ""}})
+CORS(app, origins=["http://localhost:3000", "http://localhost:5000"])
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def data():
@@ -27,7 +27,7 @@ def data():
         resp.headers.add('Content-Type', 'application/json')
         resp.headers.add('Access-Control-Allow-Origin', '*')
         resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
+        resp.headers.add('Access-Control-Allow-Methods', 'GET')
 
         return resp
     if request.method == "POST":
@@ -42,7 +42,7 @@ def data():
             resp.headers.add('Content-Type', 'application/json')
             resp.headers.add('Access-Control-Allow-Origin', '*')
             resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-            resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
+            resp.headers.add('Access-Control-Allow-Methods', 'POST')
             resp.status_code = 200
 
             return resp
@@ -58,7 +58,7 @@ def data():
             resp.headers.add('Content-Type', 'application/json')
             resp.headers.add('Access-Control-Allow-Origin', '*')
             resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-            resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
+            resp.headers.add('Access-Control-Allow-Methods', 'PUT')
             resp.status_code = 200
 
             return resp
