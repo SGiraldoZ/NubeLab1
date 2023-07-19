@@ -43,8 +43,9 @@ def data():
             resp.headers.add('Access-Control-Allow-Origin', '*')
             resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
             resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
+            resp.status_code = 200
 
-            return Response(status=200)
+            return resp
         except Exception as e:
             print(e)
             return Response(status=420)
@@ -52,7 +53,15 @@ def data():
         try:
             content = request.json
             sql_query('''UPDATE Person SET name=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["Id"]))
-            return Response(status=200)
+
+            resp = {}
+            resp.headers.add('Content-Type', 'application/json')
+            resp.headers.add('Access-Control-Allow-Origin', '*')
+            resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+            resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
+            resp.status_code = 200
+
+            return resp
         except:
             return Response(status=420)
 
