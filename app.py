@@ -8,7 +8,7 @@ x = datetime.datetime.now()
 
 # Initializing flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/": {"origins": ""}})
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def data():
@@ -37,6 +37,13 @@ def data():
             content = request.json
             PersonInsertQuery = '''INSERT INTO Person(name, email) Values(%s,%s);'''
             DBInsert(PersonInsertQuery, (content["name"], content["email"]))
+
+            resp = {}
+            resp.headers.add('Content-Type', 'application/json')
+            resp.headers.add('Access-Control-Allow-Origin', '*')
+            resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+            resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
+
             return Response(status=200)
         except Exception as e:
             print(e)
