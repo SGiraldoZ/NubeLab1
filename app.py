@@ -12,15 +12,14 @@ CORS(app)
 # Route for seeing a data
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def data():
-    print(request)
     if request.method == "GET":
-        content = request.json
         usersQuery = '''SELECT * FROM Person;'''
         user = sql_query(usersQuery)
 
         json = {'id': user["Id"], 'name': user["name"], 'email': user["email"]}
 
         resp = flask.jsonify(json)
+        resp.headers.add('Content-Type', 'application/json')
         resp.headers.add('Access-Control-Allow-Origin', '*')
         resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT')
