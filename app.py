@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, request, Response
+from flask import Flask, request, Response, make_response
 from DbConnection import DBInsert, sql_query, sql_edit
 from flask_cors import CORS, cross_origin
 import datetime
@@ -24,12 +24,11 @@ def data():
             list.append({'id': user["id"], 'name': user["name"], 'email': user["email"]})
 
         json = {'users': list}
-
+        resp = make_response()
         resp = flask.jsonify(json)
-        resp.headers.add('Content-Type', 'application/json')
         resp.headers.add('Access-Control-Allow-Origin', '*')
-        resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        resp.headers.add('Access-Control-Allow-Methods', 'GET')
+        resp.headers.add('Access-Control-Allow-Headers', '*')
+        resp.headers.add('Access-Control-Allow-Methods', '*')
 
         return resp
     if request.method == "POST":
@@ -40,32 +39,35 @@ def data():
             PersonInsertQuery = '''INSERT INTO Person(name, email) Values(%s,%s);'''
             DBInsert(PersonInsertQuery, (content["name"], content["email"]))
 
-            resp = {}
-            resp.headers.add('Content-Type', 'application/json')
+            resp = make_response()
             resp.headers.add('Access-Control-Allow-Origin', '*')
-            resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-            resp.headers.add('Access-Control-Allow-Methods', 'POST')
+            resp.headers.add('Access-Control-Allow-Headers', '*')
+            resp.headers.add('Access-Control-Allow-Methods', '*')
             resp.status_code = 200
 
             return resp
         except Exception as e:
             print(e)
-            return Response(status=420)
+            resp = make_response()
+            resp.status_code = 420
+            return resp
+
     if request.method == "PUT":
         try:
             content = request.json
             sql_query('''UPDATE Person SET name=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["Id"]))
 
-            resp = {}
-            resp.headers.add('Content-Type', 'application/json')
+            resp = make_response()
             resp.headers.add('Access-Control-Allow-Origin', '*')
-            resp.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-            resp.headers.add('Access-Control-Allow-Methods', 'PUT')
+            resp.headers.add('Access-Control-Allow-Headers', '*')
+            resp.headers.add('Access-Control-Allow-Methods', '*')
             resp.status_code = 200
 
             return resp
         except:
-            return Response(status=420)
+            resp = make_response()
+            resp.status_code = 420
+            return resp
 
 
 # Running app
