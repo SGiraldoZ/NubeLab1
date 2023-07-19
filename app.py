@@ -26,7 +26,8 @@ def data():
         json = {'users': list}
         resp = make_response()
         resp = flask.jsonify(json)
-        resp.headers.add('Access-Control-Allow-Origin', '*')
+        resp.headers.add('Access-Control-Allow-Origin', 'http://ec2-18-229-133-41.sa-east-1.compute.amazonaws.com')
+        # resp.headers.add('Access-Control-Allow-Origin', '*')
         resp.headers.add('Access-Control-Allow-Headers', '*')
         resp.headers.add('Access-Control-Allow-Methods', '*')
 
