@@ -13,7 +13,7 @@ def data():
     print(request)
     if request.method == "GET":
         content = request.json
-        usersQuery = '''SELECT * FROM Person WHERE Id like "''' + content["Id"] + '";'
+        usersQuery = '''SELECT * FROM Person;'''
         user = sql_query(usersQuery)
 
         json = {'id': user["Id"], 'name': user["name"], 'email': user["email"]}
