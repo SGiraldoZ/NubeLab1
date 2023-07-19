@@ -53,7 +53,7 @@ def data():
     if request.method == "PUT":
         try:
             content = request.json
-            sql_query('''UPDATE Person SET name=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["Id"]))
+            sql_query('''UPDATE Person SET name=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["id"]))
 
             resp = make_response()
             resp.headers.add('Access-Control-Allow-Origin', '*')
