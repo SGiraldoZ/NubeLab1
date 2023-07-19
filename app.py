@@ -1,6 +1,4 @@
-from flask import Flask, Request, Response
-from flask_restful import Resource, Api
-from methods  import getData
+from flask import Flask, request, Response
 from DbConnection import DBInsert, sql_query, sql_edit
 import datetime
 
@@ -10,28 +8,28 @@ x = datetime.datetime.now()
 app = Flask(__name__)
 
 # Route for seeing a data
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'PUT'])
 def data():
-    if Request.method == "GET":
-        content = Request.json
-        usersQuery = '''SELECT * FROM Coach WHERE id like "''' + content["Id"] + '";'
+    if request.method == "GET":
+        content = request.json
+        usersQuery = '''SELECT * FROM Person WHERE id like "''' + content["Id"] + '";'
         user = sql_query(usersQuery)
 
-        json = {'id': user["Id"], 'name': user["name"], 'Bdate': user["Bdate"]}
+        json = {'id': user["Id"], 'name': user["name"], 'email': user["email"]}
 
         return Response(json, status=200, mimetype='application/json')
-    if Request.method == "POST":
+    if request.method == "POST":
         try:
-            content = Request.json
+            content = request.json
             PersonInsertQuery = '''INSERT INTO Person(firstname, Bdate) Values(%s,%s);'''
-            DBInsert(PersonInsertQuery, (content["name"], content["Bdate"]))
+            DBInsert(PersonInsertQuery, (content["name"], content["email"]))
             return Response(status=200)
         except:
             return Response(status=420)
-    if Request.method == "PUT":
+    if request.method == "PUT":
         try:
-            content = Request.json
-            sql_query('''UPDATE Person SET firstname=%s, Bdate=%s WHERE Id = %s;''',(content["name"], content["Bdate"], content["Id"]))
+            content = request.json
+            sql_query('''UPDATE Person SET firstname=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["Id"]))
             return Response(status=200)
         except:
             return Response(status=420)
