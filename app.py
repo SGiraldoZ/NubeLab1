@@ -19,7 +19,7 @@ def data():
         list=[]
         for user in users:
             print(user)
-            list.append({'id': user["Id"], 'name': user["name"], 'email': user["email"]})
+            list.append({'id': user["id"], 'name': user["name"], 'email': user["email"]})
 
         json = {list}
 
