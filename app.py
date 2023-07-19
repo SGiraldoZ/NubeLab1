@@ -53,6 +53,7 @@ def data():
     if request.method == "PUT":
         try:
             content = request.json
+            print(content)
             sql_query('''UPDATE Person SET name=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["id"]))
 
             resp = make_response()
@@ -62,7 +63,8 @@ def data():
             resp.status_code = 200
 
             return resp
-        except:
+        except Exception as e:
+            print(e)
             resp = make_response()
             resp.status_code = 420
             return resp
