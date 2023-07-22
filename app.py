@@ -54,7 +54,7 @@ def data():
         try:
             content = request.json
             print(content)
-            sql_query('''UPDATE Person SET name=%s, email=%s WHERE id = %s;''',(content["name"], content["email"]))
+            sql_edit('''UPDATE Person SET name=%s, email=%s WHERE id = %s;''',(content["name"], content["email"]))
 
             resp = make_response()
             resp.headers.add('Access-Control-Allow-Origin', '*')
