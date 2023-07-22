@@ -54,7 +54,7 @@ def data():
         try:
             content = request.json
             print(content)
-            sql_query('''UPDATE Person SET name=%s, email=%s WHERE Id = %s;''',(content["name"], content["email"], content["id"]))
+            sql_query('''UPDATE Person SET name=%s, email=%s WHERE id = %s;''',(content["name"], content["email"]))
 
             resp = make_response()
             resp.headers.add('Access-Control-Allow-Origin', '*')
@@ -73,4 +73,3 @@ def data():
 # Running app
 if __name__ == '__main__':
     app.run(debug=True)
-
